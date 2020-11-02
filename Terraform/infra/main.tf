@@ -80,26 +80,33 @@ module "northeulb" {
     lb_name                           = "northeu-lb"  
 }
 
-module "eastusvms" {
-    source              = "../modules/vm"
+resource "tls_private_key" "ssh" {
+  algorithm = "RSA"
+  rsa_bits = 4096
+}
 
-    vnet_location       = "EastUS"
-    RG_name             = azurerm_resource_group.RG.name
-    vm_names            = ["app1", "app2"]
-    subnet_id           = module.eastussubnet.subnet_id
-    availability_set_id = module.eastusavas.availability_set_id
-    backend_address_pool_id = module.eastuslb.backend_address_pool_id    
+module "eastusvms" {
+    source                  = "../modules/vm"
+
+    vnet_location           = "EastUS"
+    RG_name                 = azurerm_resource_group.RG.name
+    vm_names                = ["app1", "app2"]
+    subnet_id               = module.eastussubnet.subnet_id
+    availability_set_id     = module.eastusavas.availability_set_id
+    backend_address_pool_id = module.eastuslb.backend_address_pool_id
+    ssh_pub                 = tls_private_key.ssh.public_key_openssh 
 }
 
 module "northeuvms" {
-    source              = "../modules/vm"
+    source                  = "../modules/vm"
 
-    vnet_location       = "NorthEurope"
-    RG_name             = azurerm_resource_group.RG.name
-    vm_names            = ["app1", "app2"]
-    subnet_id           = module.northeusubnet.subnet_id
-    availability_set_id = module.northeuas.availability_set_id 
-    backend_address_pool_id = module.northeulb.backend_address_pool_id   
+    vnet_location           = "NorthEurope"
+    RG_name                 = azurerm_resource_group.RG.name
+    vm_names                = ["app1", "app2"]
+    subnet_id               = module.northeusubnet.subnet_id
+    availability_set_id     = module.northeuas.availability_set_id 
+    backend_address_pool_id = module.northeulb.backend_address_pool_id
+    ssh_pub                 = tls_private_key.ssh.public_key_openssh  
 }
 
 module "trafficmanager" {

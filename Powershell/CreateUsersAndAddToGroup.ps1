@@ -86,12 +86,10 @@ $lastCounter = 0
 $users = (Get-AzADUser -StartsWith "Test User").DisplayName
 foreach($usr in $users) {
     $usrCounter = [int]($usr.split("r")[1])
-    #$lastCounter += $usrCounter
     if($usrCounter -gt $lastCounter) {
         $lastCounter = $usrCounter
     }
 }
-#$lastCounter = $lastCounter | sort
 $counter = $($lastCounter + 1) # Defination of the initial counter for the test users
 $finelCounter = $($counter + 20)
 

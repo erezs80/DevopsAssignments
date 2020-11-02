@@ -2,6 +2,10 @@ variable "vnet_location" {
   description = "The Azure location"
 }
 
+variable "ssh_pub" {
+  description = "Public ssh key pair"
+}
+
 variable "RG_name" {
     description = "Resource group name"
 }
