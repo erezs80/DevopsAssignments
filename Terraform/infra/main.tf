@@ -122,7 +122,7 @@ module "eastusendpoint" {
     endpoint_name           = "eastus-endpoint"
     RG_name                 = azurerm_resource_group.RG.name
     traffic_profile_name    = "testmevaronisdev"
-    lb_ip                   = module.eastuslb.public_ip_address
+    lb_fqdn                 = module.eastuslb.public_fqdn
     vnet_location           = "EastUS"    
 }
 
@@ -132,6 +132,6 @@ module "northeuendpoint" {
     endpoint_name           = "northeu-endpoint"
     RG_name                 = azurerm_resource_group.RG.name
     traffic_profile_name    = "testmevaronisdev"
-    lb_ip                   = module.northeulb.public_ip_address
+    lb_fqdn                 = module.northeulb.public_fqdn
     vnet_location           = "NorthEurope"    
 }

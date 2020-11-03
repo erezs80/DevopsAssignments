@@ -6,8 +6,8 @@ variable "traffic_profile_name" {
     description = "Traffic manager profile name"
 }
 
-variable "lb_ip" {
-    description = "Load balancer public ip"
+variable "lb_fqdn" {
+    description = "Load balancer public fqdn"
 }
 
 variable "vnet_location" {
